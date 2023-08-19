@@ -1,6 +1,7 @@
 import React, { FC, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import NotFound from "./components/NotFound";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SignIn from "./components/SignIn";
@@ -31,6 +32,7 @@ const App: FC<AppProps> = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
