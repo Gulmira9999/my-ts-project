@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
@@ -12,6 +13,14 @@ const App: FC<AppProps> = () => {
     <Routes>
       <Route path="/" element={<SignUp />} />
       <Route path="/signin" element={<SignIn />} />
+      <Route
+        path="/profiles/:username"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/dashboard"
         element={
