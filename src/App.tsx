@@ -1,4 +1,4 @@
-import React, { FC, lazy } from "react";
+import React, { FC, lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Profile from "./components/Profile";
@@ -25,7 +25,9 @@ const App: FC<AppProps> = () => {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <LazyDashboard />
+            <Suspense fallback={<div>...Loading component"</div>}>
+              <LazyDashboard />
+            </Suspense>
           </ProtectedRoute>
         }
       />
