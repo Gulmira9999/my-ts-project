@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { signin } from "../api/api";
 
 interface SignInFormData {
   username: string;
@@ -11,8 +13,17 @@ const SignIn: FC = () => {
     register,
     formState: { errors },
   } = useForm<SignInFormData>();
+  const navigate = useNavigate();
 
-  const onSubmit = async (data: SignInFormData) => {};
+  const onSubmit = async (data: SignInFormData) => {
+    try {
+      const token = await signin(data.username, data.password);
+      localStorage.setItem("token", token);
+      navigate("/dashboard");
+    } catch (errors) {
+      console.error(errors);
+    }
+  };
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
