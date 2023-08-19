@@ -1,13 +1,13 @@
-import React, { FC } from "react";
+import React, { FC, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 interface AppProps {}
 
+const LazyDashboard = lazy(() => import("./components/Dashboard"));
 const App: FC<AppProps> = () => {
   return (
     <Routes>
@@ -25,7 +25,7 @@ const App: FC<AppProps> = () => {
         path="/dashboard"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <LazyDashboard />
           </ProtectedRoute>
         }
       />
