@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../api/api";
 
 interface SignInFormData {
@@ -47,6 +47,9 @@ const SignIn: FC = () => {
         </div>
         <button type="submit">Sign In</button>
       </form>
+      <p>
+        Don't have an account ?<Link to="/signup">Sing up</Link>
+      </p>
     </div>
   );
 };
