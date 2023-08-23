@@ -12,6 +12,7 @@ const SignIn: FC = () => {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<SignInFormData>();
   const navigate = useNavigate();
   const [error, setError] = useState();
@@ -22,9 +23,15 @@ const SignIn: FC = () => {
       const token = await signin(data.username, data.password);
       localStorage.setItem("token", token);
       navigate("/dashboard");
+      reset();
     } catch (error) {
       setError(error);
     }
+  };
+
+  const handleClearForm = () => {
+    reset(); // Reset the form fields
+    setError(null); // Clear any error messages
   };
   return (
     <div>
@@ -51,6 +58,9 @@ const SignIn: FC = () => {
           )}
         </div>
         <button type="submit">Sign In</button>
+        <button type="button" onClick={handleClearForm}>
+          Clear Form
+        </button>
       </form>
       <p>
         Don't have an account ?<Link to="/signup">Sing up</Link>
