@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { signin } from "../api/api";
@@ -14,14 +14,16 @@ const SignIn: FC = () => {
     formState: { errors },
   } = useForm<SignInFormData>();
   const navigate = useNavigate();
+  const [error, setError] = useState();
+  console.log(error);
 
   const onSubmit = async (data: SignInFormData) => {
     try {
       const token = await signin(data.username, data.password);
       localStorage.setItem("token", token);
       navigate("/dashboard");
-    } catch (errors) {
-      console.error(errors);
+    } catch (error) {
+      setError(error);
     }
   };
   return (
@@ -44,6 +46,9 @@ const SignIn: FC = () => {
             {...register("password", { required: true })}
           />
           {errors.password && <span>This field is required</span>}
+          {error && (
+            <p style={{ color: "red" }}>Incorrect username or password</p>
+          )}
         </div>
         <button type="submit">Sign In</button>
       </form>
