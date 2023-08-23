@@ -16,8 +16,11 @@ const SignIn: FC = () => {
   } = useForm<SignInFormData>();
   const navigate = useNavigate();
   const [error, setError] = useState();
-  console.log(error);
+  const [passwordVisible, setPasswordVisible] = useState(false); // New state
 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevVisible) => !prevVisible);
+  };
   const onSubmit = async (data: SignInFormData) => {
     try {
       const token = await signin(data.username, data.password);
@@ -51,7 +54,12 @@ const SignIn: FC = () => {
             id="password"
             placeholder="password"
             {...register("password", { required: true })}
+            type={passwordVisible ? "text" : "password"} // Toggle type based on passwordVisible
           />
+          <button type="button" onClick={togglePasswordVisibility}>
+            {passwordVisible ? "Hide" : "Show"} Password
+          </button>
+
           {errors.password && <span>This field is required</span>}
           {error && (
             <p style={{ color: "red" }}>Incorrect username or password</p>
