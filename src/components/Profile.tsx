@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getPosts } from "../api/api";
-import { IPost } from "../interface/general";
 
 interface IPosts {
   posts: IPost[];
@@ -26,7 +25,7 @@ const Profile: FC = () => {
 
       {posts &&
         posts.map((post: IPost) => (
-          <Link key={post.id} to={`/posts/${post.id}`}>
+          <Link key={post.id} to={`/profiles/${post.userId}/posts/${post.id}`}>
             <h2>{post.title}</h2>
           </Link>
         ))}

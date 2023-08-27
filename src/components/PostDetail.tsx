@@ -1,12 +1,32 @@
-import React, { FC } from "react";
-import { IPost } from "../interface/general";
+import React, { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getPostDetail } from "../api/api";
 
-const PostDetail: FC<IPost> = ({ id, userId, title, body }) => {
+const PostDetail: FC<IPost> = () => {
+  const [post, setPost] = useState<IPost | null>(null);
+
+  const { postId } = useParams();
+  console.log(postId);
+
+  useEffect(() => {
+    const postDetail = async () => {
+      const post = await getPostDetail(postId);
+      console.log(post);
+
+      setPost(post);
+    };
+    postId && postDetail();
+  }, [postId]);
   return (
     <>
-      <h2>Post: {id}</h2>
-      <h2>{title}</h2>
-      <p>{body}</p>
+      {" "}
+      {post && (
+        <>
+          <h2>Post detail: {post.id}</h2>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+        </>
+      )}
     </>
   );
 };

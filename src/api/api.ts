@@ -17,7 +17,21 @@ export const signin = (username: string, password: string): Promise<string> => {
 export const getPosts = async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/posts");
 
-  const data = response.json();
+  const data = await response.json();
+  if (response.ok) {
+    return data;
+  } else {
+    throw new Error("Error with fetch");
+  }
+};
+
+export const getPostDetail = async (postId) => {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/posts/${postId}`
+  );
+  console.log(response);
+
+  const data = await response.json();
   if (response.ok) {
     return data;
   } else {
