@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPostDetail } from "../api/api";
+import { IPost } from "../types";
 
-const PostDetail: FC<IPost> = () => {
+const PostDetail: FC = () => {
   const [post, setPost] = useState<IPost | null>(null);
 
   const { postId } = useParams();

@@ -1,3 +1,5 @@
+import IUser from "../types";
+
 const users = [{ username: "username", password: "password" }];
 
 export const signin = (username: string, password: string): Promise<string> => {
@@ -30,6 +32,19 @@ export const getPostDetail = async (postId) => {
     `https://jsonplaceholder.typicode.com/posts/${postId}`
   );
   console.log(response);
+
+  const data = await response.json();
+  if (response.ok) {
+    return data;
+  } else {
+    throw new Error("Error with fetch");
+  }
+};
+
+export const getUser = async (userId: string): Promise<IUser> => {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/users/${userId}`
+  );
 
   const data = await response.json();
   if (response.ok) {

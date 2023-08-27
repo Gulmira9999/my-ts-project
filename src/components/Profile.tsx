@@ -1,27 +1,36 @@
 import React, { FC, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getPosts } from "../api/api";
-
-interface IPosts {
-  posts: IPost[];
-}
+import { getPosts, getUser } from "../api/api";
+import IUser, { IPost } from "../types";
 
 const Profile: FC = () => {
   const { userId } = useParams();
-  const [posts, setPosts] = useState<IPosts>();
+  const [posts, setPosts] = useState<IPost[]>();
+  const [user, setUser] = useState<IUser | null>(null);
   useEffect(() => {
+    const profile = async () => {
+      const user = await getUser(userId);
+      setUser(user);
+    };
     const posts = async () => {
       const posts = await getPosts();
       setPosts(posts);
     };
 
+    profile();
     posts();
-  }, []);
+  }, [userId]);
 
+  // const userName = (user as IUser).id;
   return (
     <div>
-      <h1>Profile page</h1>
-      <h2>Welcome {userId}</h2>
+      {user && (
+        <>
+          <h1>{user.name}</h1>
+          <h2>Welcome {user.name}</h2>
+          {/* <p>{}</p> */}
+        </>
+      )}
 
       {posts &&
         posts.map((post: IPost) => (
