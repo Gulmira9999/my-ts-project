@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid"; // Import the UUID v4 function
+// import { v4 as uuidv4 } from "uuid";
 
 const Layout = () => {
-  const generatedId = uuidv4();
+  // const generatedId = uuidv4();
 
   return (
     <ul>
@@ -11,7 +11,7 @@ const Layout = () => {
         <Link to="/signin">Sign in</Link>
       </li>
       <li>
-        <Link to={`/profiles/${generatedId}`}>Profile</Link>
+        <Link to={`/profiles`}>Profile</Link>
       </li>
     </ul>
   );

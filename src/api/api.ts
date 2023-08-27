@@ -13,3 +13,14 @@ export const signin = (username: string, password: string): Promise<string> => {
     }
   });
 };
+
+export const getPosts = async () => {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+
+  const data = response.json();
+  if (response.ok) {
+    return data;
+  } else {
+    throw new Error("Error with fetch");
+  }
+};
